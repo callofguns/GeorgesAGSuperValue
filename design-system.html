@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design system — George's AG Super Value</title>
+<meta name="description" content="The living style guide for georgesagsupervalue.com: colour tokens, type scale, spacing, components and micro-interactions.">
+<script>
+  (function(){ try { var s = localStorage.getItem("georges-theme");
+    if (s === "light" || s === "dark") document.documentElement.dataset.theme = s; } catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Page-specific scaffolding. The components themselves come from
+     styles.css untouched, so this guide can never drift from the site. */
+  body { padding-bottom: var(--sp-14); }
+  .guide { max-width: 1000px; margin-inline: auto; padding: var(--sp-6) var(--sp-5) var(--sp-24); }
+  .guide section { padding-block: var(--sp-10); border-top: 1px solid var(--line); }
+  .guide section:first-of-type { border-top: 0; }
+  .specimen {
+    display: flex; flex-wrap: wrap; gap: var(--sp-3);
+    align-items: center;
+    padding: var(--sp-5);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--r-md);
+    margin-bottom: var(--sp-3);
+  }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px,1fr)); gap: var(--sp-3); }
+  .sw { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+  .sw__chip { height: 62px; }
+  .sw__meta { padding: var(--sp-2) var(--sp-3); font-size: var(--text-caption2); }
+  .sw__meta b { display: block; font-weight: 700; }
+  .sw__meta span { color: var(--ink-tertiary); font-variant-numeric: tabular-nums; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--text-subhead); }
+  th, td { text-align: left; padding: var(--sp-3) var(--sp-3) var(--sp-3) 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: var(--text-caption2); text-transform: uppercase; letter-spacing: .1em; color: var(--ink-tertiary); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; color: var(--accent); }
+  .scale-row { display: flex; align-items: baseline; gap: var(--sp-4); padding: var(--sp-2) 0; border-bottom: 1px solid var(--line); }
+  .scale-row code { flex: none; width: 12ch; }
+  .note-box {
+    padding: var(--sp-4); border-left: 3px solid var(--accent);
+    background: var(--surface); border-radius: 0 var(--r-sm) var(--r-sm) 0;
+    font-size: var(--text-subhead); color: var(--ink-secondary);
+  }
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="wrap appbar__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark" aria-hidden="true">G</span>
+      <span class="brand__name"><b>Design system</b><span>George's AG Super Value</span></span>
+    </a>
+    <a class="btn btn--plain" href="index.html">Back to the site</a>
+  </div>
+</header>
+
+<main class="guide">
+
+  <section>
+    <span class="section__eyebrow">Foundations</span>
+    <h1 style="font-size:var(--text-large)">The circular, made native</h1>
+    <p class="section__lede">The store's paper flyer is the design language: mint stock,
+      black ink, fat prices, and the dotted leader line that runs from a product name to
+      its price. The interaction model is native mobile — 44px targets, a tab bar, a
+      sheet you can drag away.</p>
+    <p class="note-box">Everything on this page is rendered by the real
+      <code>styles.css</code>. If a component changes on the site, it changes here.</p>
+  </section>
+
+  <section>
+    <h2>Colour</h2>
+    <p class="section__lede">Two themes, both first class. Dark is the default because
+      that is what the store asked for; light is the flyer's own paper. Every pairing
+      below meets WCAG AA (4.5:1) for body text.</p>
+
+    <h3>Semantic tokens</h3>
+    <div class="swatches" id="swatches"></div>
+
+    <h3 style="margin-top:var(--sp-8)">Primary ramp</h3>
+    <div class="swatches" id="ramp"></div>
+
+    <p class="note-box" style="margin-top:var(--sp-5)">Colour never carries meaning on its
+      own. The Blockbuster flag pairs amber with a ★ and the word itself; the open/closed
+      dot pairs colour with text; an added item shows a check, not just a green fill.</p>
+  </section>
+
+  <section>
+    <h2>Type</h2>
+    <p class="section__lede">Two families, three weights. <b>Anton</b> speaks only in
+      prices — it is the circular's voice and never sets prose. <b>Figtree</b> does
+      everything else at 400 / 600 / 800.</p>
+
+    <div class="specimen" style="display:block">
+      <div class="scale-row"><code>--text-display</code><span style="font-size:var(--text-display);font-weight:800;letter-spacing:-.04em">This week's</span></div>
+      <div class="scale-row"><code>--text-title1</code><span style="font-size:var(--text-title1);font-weight:800">Section title · 34</span></div>
+      <div class="scale-row"><code>--text-headline</code><span style="font-size:var(--text-headline);font-weight:700">Card title · 20</span></div>
+      <div class="scale-row"><code>--text-body</code><span style="font-size:var(--text-body)">Body copy · 17</span></div>
+      <div class="scale-row"><code>--text-subhead</code><span style="font-size:var(--text-subhead)">Secondary label · 15</span></div>
+      <div class="scale-row"><code>--text-caption</code><span style="font-size:var(--text-caption)">Metadata · 13</span></div>
+      <div class="scale-row"><code>--text-caption2</code><span style="font-size:var(--text-caption2)">Pack size, fine print · 12</span></div>
+      <div class="scale-row"><code>.price</code><span class="price">$0.98</span></div>
+    </div>
+
+    <table>
+      <tr><th>Rule</th><th>Value</th><th>Why</th></tr>
+      <tr><td>Body size</td><td>17px</td><td>Above the 16px floor, so iOS Safari never zooms on focus</td></tr>
+      <tr><td>Line height</td><td>1.55 body / 1.12 headings</td><td>Inside the 1.4–1.6 and 1.1–1.3 bands</td></tr>
+      <tr><td>Measure</td><td><code>--measure: 68ch</code></td><td>Keeps prose in the 45–75 character range</td></tr>
+      <tr><td>Weights</td><td>400, 600, 800</td><td>Three total; Anton adds no weights of its own</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Space, radius, elevation</h2>
+    <p class="section__lede">A 4pt grid. Every padding and gap in the system is one of
+      these; nothing is hand-tuned.</p>
+    <div class="specimen" id="spacing"></div>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Used for</th></tr>
+      <tr><td><code>--r-sm</code> / <code>--r-md</code></td><td>12 / 16px</td><td>Chips, deal cards</td></tr>
+      <tr><td><code>--r-lg</code> / <code>--r-xl</code></td><td>22 / 28px</td><td>Panels, the bottom sheet</td></tr>
+      <tr><td><code>--r-pill</code></td><td>999px</td><td>Every button and control</td></tr>
+      <tr><td><code>--shadow-card</code> → <code>--shadow-sheet</code></td><td>3 steps</td><td>Resting, lifted, floating over content</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Touch</h2>
+    <table>
+      <tr><th>Rule</th><th>Value</th></tr>
+      <tr><td>Minimum target</td><td>44 × 44px (<code>--touch-min</code>), the iOS floor; 48px comfortable for Android</td></tr>
+      <tr><td>Spacing between targets</td><td>8px minimum (<code>--touch-gap</code>)</td></tr>
+      <tr><td>Thumb zone</td><td>Primary actions sit in the tab bar and the sheet footer — the bottom third</td></tr>
+      <tr><td>Gesture conflicts</td><td>Row swipes lock to an axis after 8px, so a swipe never fights a scroll</td></tr>
+      <tr><td>Feedback latency</td><td>120ms press response, driven by <code>:active</code> — no JS in the path</td></tr>
+      <tr><td>Haptics</td><td>6–12ms, on committed actions only. Absent on iOS Safari by design</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Components</h2>
+
+    <h3>Buttons</h3>
+    <div class="specimen">
+      <button class="btn btn--filled">Filled — one per view</button>
+      <button class="btn btn--tinted">Tinted</button>
+      <button class="btn btn--plain">Plain</button>
+      <button class="btn btn--filled btn--lg">Large</button>
+      <button class="icon-btn" aria-label="Icon button example">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+    </div>
+
+    <h3>Status chip</h3>
+    <div class="specimen">
+      <span class="chip"><span class="chip__dot"></span> Open now · 8am – 10pm</span>
+      <span class="chip chip--closed"><span class="chip__dot"></span> Closed · opens 8am</span>
+    </div>
+
+    <h3>Segmented control</h3>
+    <div class="specimen" style="display:block">
+      <div class="segmented" id="demo-seg">
+        <span class="segmented__indicator" id="demo-indicator"></span>
+        <button class="segmented__btn" aria-selected="true">All items <span class="segmented__count">25</span></button>
+        <button class="segmented__btn" aria-selected="false">Grocery <span class="segmented__count">12</span></button>
+        <button class="segmented__btn" aria-selected="false">Bakery <span class="segmented__count">3</span></button>
+        <button class="segmented__btn" aria-selected="false">Dairy <span class="segmented__count">5</span></button>
+      </div>
+    </div>
+
+    <h3>Search field</h3>
+    <div class="specimen" style="display:block">
+      <label class="field">
+        <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input type="search" placeholder="Search brands or products" aria-label="Demo search">
+      </label>
+    </div>
+
+    <h3>Deal card</h3>
+    <div class="specimen" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
+      <article class="deal deal--flagged">
+        <span class="deal__flag">★ Blockbuster</span>
+        <h4 class="deal__brand" style="margin:0">Barilla</h4>
+        <p class="deal__name">Pasta</p>
+        <p class="deal__size">12 - 16 oz Select Varieties</p>
+        <span class="leader leader--rule"></span>
+        <div class="deal__foot">
+          <span class="price">$0.98</span>
+          <button class="add" aria-pressed="false" aria-label="Add Barilla Pasta to my list">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </article>
+      <article class="deal">
+        <h4 class="deal__brand" style="margin:0">Cabot Creamery</h4>
+        <p class="deal__name">Cheese</p>
+        <p class="deal__size">Sliced or Cracker Cut 7 - 8 oz</p>
+        <span class="leader leader--rule"></span>
+        <div class="deal__foot">
+          <span class="price">2/$6</span>
+          <button class="add" aria-pressed="true" aria-label="Remove Cabot Cheese from my list">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg>
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <h3>The leader line — the signature</h3>
+    <div class="specimen" style="display:block">
+      <div class="flyer__item">
+        <span class="flyer__label"><b>Folgers</b><span>Coffee</span></span>
+        <span class="leader leader--center"></span>
+        <span class="price">$6.99</span>
+      </div>
+      <p style="font-size:var(--text-caption);color:var(--ink-tertiary);margin:var(--sp-3) 0 0">
+        A repeating radial gradient, not an image or a border. It scales with the type
+        and costs nothing to paint.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Micro-interactions</h2>
+    <p class="section__lede">Every one is defined the same way, runs on transform or
+      opacity, and is switched off by <code>prefers-reduced-motion</code>.</p>
+
+    <table>
+      <tr><th>Interaction</th><th>Trigger → Feedback</th><th>Duration / curve</th></tr>
+      <tr>
+        <td>Press</td>
+        <td>Touchdown on any control → scales to 0.965 (0.88 for round buttons)</td>
+        <td>120ms <code>--ease-spring</code></td>
+      </tr>
+      <tr>
+        <td>Add to list</td>
+        <td>Tap + → icon becomes a check, button fills, badge springs, 12ms haptic, toast with Undo</td>
+        <td>180–240ms</td>
+      </tr>
+      <tr>
+        <td>Filter</td>
+        <td>Tap a department → the pill slides to it, grid re-renders, count announced</td>
+        <td>240ms <code>--ease-out</code></td>
+      </tr>
+      <tr>
+        <td>Sheet</td>
+        <td>Open → rises from the bottom edge; drag → follows the finger, scrim fades with it</td>
+        <td>300ms <code>--ease-out</code></td>
+      </tr>
+      <tr>
+        <td>Swipe a row</td>
+        <td>Drag left → Remove is revealed at 88px; past 160px it commits</td>
+        <td>Follows the finger, 240ms to settle</td>
+      </tr>
+      <tr>
+        <td>App bar</td>
+        <td>Scroll past 40px → hairline appears, page title fades in as the brand fades out</td>
+        <td>240ms</td>
+      </tr>
+      <tr>
+        <td>Reveal</td>
+        <td>Section enters the viewport → 10px rise and fade, once, then unobserved</td>
+        <td>420ms, staggered ≤180ms</td>
+      </tr>
+    </table>
+
+    <p class="note-box"><b>Patterns deliberately left out.</b> Pull-to-refresh: the page has
+      nothing to fetch, so the gesture would be theatre. Skeleton screens: the content is
+      local and paints immediately — a fake loading state would make the site feel slower,
+      not faster. A floating action button: the primary action already lives in the tab
+      bar, and two competing primaries is one too many.</p>
+  </section>
+
+  <section>
+    <h2>Themes</h2>
+    <p class="section__lede">Try it — the toggle writes to <code>localStorage</code> and the
+      choice carries across both pages.</p>
+    <div class="specimen">
+      <button class="btn btn--filled" id="flip">Flip the theme</button>
+      <span class="chip" id="theme-readout">—</span>
+    </div>
+  </section>
+</main>
+
+<script>
+  var SEMANTIC = [
+    ["--canvas","Page ground"], ["--surface","Cards, controls"],
+    ["--surface-raised","Lifted surfaces"], ["--surface-sunken","Recessed panels"],
+    ["--ink","Primary text & prices"], ["--ink-secondary","Supporting text"],
+    ["--ink-tertiary","Metadata"], ["--accent","Actions, brand"],
+    ["--flag","Blockbuster only"], ["--danger","Destructive"], ["--info","Informational"]
+  ];
+  var RAMP = ["--green-50","--green-100","--green-200","--green-300","--green-400",
+              "--green-500","--green-600","--green-700","--green-800","--green-900"];
+
+  function hex(token) {
+    return getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  }
+  function paintSwatches() {
+    document.getElementById("swatches").innerHTML = SEMANTIC.map(function (s) {
+      return '<div class="sw"><div class="sw__chip" style="background:var(' + s[0] + ')"></div>' +
+        '<div class="sw__meta"><b>' + s[1] + "</b><span>" + s[0] + "</span>" +
+        "<span>" + hex(s[0]) + "</span></div></div>";
+    }).join("");
+    document.getElementById("ramp").innerHTML = RAMP.map(function (t) {
+      return '<div class="sw"><div class="sw__chip" style="background:var(' + t + ')"></div>' +
+        '<div class="sw__meta"><b>' + t.replace("--green-", "Green ") + "</b><span>" + hex(t) + "</span></div></div>";
+    }).join("");
+  }
+
+  document.getElementById("spacing").innerHTML =
+    [4,8,12,16,20,24,32,40,56,72,96].map(function (n) {
+      return '<span style="display:grid;gap:6px;justify-items:center">' +
+        '<span style="display:block;width:' + n + 'px;height:' + n +
+        'px;background:var(--accent);border-radius:3px"></span>' +
+        '<small style="font-size:11px;color:var(--ink-tertiary)">' + n + "</small></span>";
+    }).join("");
+
+  (function segDemo() {
+    var seg = document.getElementById("demo-seg");
+    var ind = document.getElementById("demo-indicator");
+    var btns = seg.querySelectorAll(".segmented__btn");
+    function move(b) {
+      ind.style.transform = "translateX(" + b.offsetLeft + "px)";
+      ind.style.width = b.offsetWidth + "px";
+    }
+    btns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        btns.forEach(function (x) { x.setAttribute("aria-selected", "false"); });
+        b.setAttribute("aria-selected", "true");
+        move(b);
+      });
+    });
+    requestAnimationFrame(function () { move(btns[0]); });
+  })();
+
+  document.querySelectorAll(".add").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var on = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", String(on));
+      b.querySelector(".icon").innerHTML = on
+        ? '<path d="M5 13l4 4L19 7"/>' : '<path d="M12 5v14M5 12h14"/>';
+    });
+  });
+
+  function readout() {
+    var t = document.documentElement.dataset.theme ||
+      (matchMedia("(prefers-color-scheme: light)").matches ? "light (from your OS)" : "dark (from your OS)");
+    document.getElementById("theme-readout").textContent = "Current: " + t;
+    paintSwatches();
+  }
+  document.getElementById("flip").addEventListener("click", function () {
+    var now = document.documentElement.dataset.theme ||
+      (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+    var next = now === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem("georges-theme", next); } catch (e) {}
+    readout();
+  });
+  readout();
+</script>
+</body>
+</html>

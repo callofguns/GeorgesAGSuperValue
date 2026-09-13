@@ -3,386 +3,395 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>George's AG Super Value — Enfield, NH</title>
-<meta name="description" content="Family owned grocery store in Enfield, New Hampshire since 1965. Full service meat, deli, produce, bakery and frozen departments, weekly specials, and discount gas every Monday and Tuesday.">
-<meta name="theme-color" content="#08090c">
+<title>George's AG Super Value — Weekly specials in Enfield, NH</title>
+<meta name="description" content="This week's prices at George's AG Super Value, 66 Main St, Enfield NH. Family owned since 1965 — full service meat, deli, produce, bakery and frozen, plus discount gas every Monday and Tuesday.">
+<meta name="theme-color" content="#0A0D0B" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#E9F3EB" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
 <meta property="og:title" content="George's AG Super Value — Enfield, NH">
-<meta property="og:description" content="Your neighborhood market since 1965. Weekly specials, full service deli, Certified Black Angus beef, and discount gas Mondays &amp; Tuesdays.">
+<meta property="og:description" content="This week's prices, the deli counter, and how to find us. Family owned since 1965.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2314301f'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' font-weight='700' fill='%234ade80'>G</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='15' fill='%2334D07F'/><text x='32' y='47' text-anchor='middle' font-size='42' font-family='Impact,sans-serif' fill='%2304170D'>G</text></svg>">
+
+<!-- Critical path: the theme must resolve before first paint or the page
+     flashes the wrong colours. This is the only blocking script on the page. -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("georges-theme");
+      if (saved === "light" || saved === "dark") {
+        document.documentElement.dataset.theme = saved;
+      }
+    } catch (e) { /* storage blocked — fall back to the OS preference */ }
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Figtree:wght@400;600;800&display=swap">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!-- soft colored glows behind everything -->
-<div class="aurora" aria-hidden="true">
-  <span class="glow glow-green"></span>
-  <span class="glow glow-blue"></span>
-</div>
+<a class="skip-link" href="#weekly">Skip to this week's specials</a>
 
-<a class="skip-link" href="#weekly">Skip to weekly specials</a>
-
-<!-- ================= HEADER ================= -->
-<header class="header" id="header">
-  <div class="wrap header-inner">
-    <a class="brand" href="#top">
-      <span class="brand-mark">G</span>
-      <span class="brand-text">
-        <strong>George's</strong>
-        <small>AG Super Value</small>
+<!-- ============================ APP BAR ============================ -->
+<header class="appbar" id="appbar">
+  <div class="wrap appbar__inner">
+    <a class="brand" href="#top" aria-label="George's AG Super Value, back to top">
+      <span class="brand__mark" aria-hidden="true">G</span>
+      <span class="brand__name">
+        <b>George's</b>
+        <span>AG Super Value</span>
       </span>
     </a>
 
-    <nav class="nav-desktop" aria-label="Main">
+    <span class="appbar__title" aria-hidden="true">This week's prices</span>
+
+    <nav class="appbar__nav" aria-label="Sections">
       <a href="#weekly">Weekly Ad</a>
       <a href="#departments">Departments</a>
       <a href="#deli">Deli</a>
-      <a href="#about">About</a>
+      <a href="#story">Our Story</a>
       <a href="#visit">Visit</a>
     </nav>
 
-    <div class="header-actions">
-      <a class="btn btn-ghost btn-call" href="tel:+16036327443">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
-        <span>(603) 632-7443</span>
-      </a>
-      <button class="btn btn-primary btn-list" id="list-open" aria-haspopup="dialog">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M9 5h10M9 12h10M9 19h10M4.5 5h.01M4.5 12h.01M4.5 19h.01"/></svg>
-        <span>My List</span>
-        <span class="badge" id="list-count-header">0</span>
-      </button>
-    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="Switch to light theme">
+      <svg class="icon" id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+      </svg>
+    </button>
+
+    <a class="icon-btn" href="tel:+16036327443" aria-label="Call the store at 603 632 7443">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+    </a>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- ================= HERO ================= -->
-  <section class="hero wrap" id="home">
-    <span class="pill pill-live reveal">
-      <span class="dot"></span>
-      <span id="open-status">Open today · 8am – 10pm</span>
-    </span>
+  <!-- ============================ HERO ============================
+       The hero is the circular itself. What this store has to say first is
+       what is cheap this week — the story comes after the prices. -->
+  <section class="wrap hero" id="home">
+    <div class="hero__copy">
+      <p class="chip" id="status-chip">
+        <span class="chip__dot" aria-hidden="true"></span>
+        <span id="status-text">Open today · 8am – 10pm</span>
+      </p>
 
-    <h1 class="reveal">Your neighborhood<br>market since <em>1965</em>.</h1>
+      <span class="hero__meta">Enfield, New Hampshire</span>
+      <h1>This week's<br>prices.</h1>
+      <p class="hero__lede">Family owned on Main Street since
+        <span class="hero__year">1965</span>. Here is everything on sale this week.</p>
 
-    <p class="lede reveal">Family owned in Enfield, New Hampshire. Full service meat, deli,
-      produce, bakery and frozen departments — plus the cheapest gas in town.</p>
-
-    <div class="hero-actions reveal">
-      <a class="btn btn-primary btn-lg" href="#weekly">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M3 3h2l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.6L21 8H6"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>
-        See this week's specials
-      </a>
-      <a class="btn btn-ghost btn-lg" href="https://maps.google.com/?q=66+Main+St+Enfield+NH+03748" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-        Get directions
-      </a>
+      <div class="hero__actions">
+        <a class="btn btn--filled btn--lg" href="#weekly">
+          See all <span id="hero-count">25</span> specials
+        </a>
+        <a class="btn btn--plain btn--lg" href="https://maps.google.com/?q=66+Main+St+Enfield+NH+03748" target="_blank" rel="noopener">
+          <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Directions
+        </a>
+      </div>
     </div>
 
-    <!-- quick stat cards, like the app screenshots -->
-    <div class="stat-row reveal">
-      <div class="stat-card">
-        <span class="stat-icon green">
-          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 20V8l8-5 8 5v12"/><path d="M9 20v-6h6v6"/></svg>
-        </span>
-        <div>
-          <small>Serving Enfield for</small>
-          <strong>60+ years</strong>
-        </div>
+    <!-- the signature element: the flyer's dotted leader rows -->
+    <div class="flyer" id="flyer">
+      <div class="flyer__head">
+        <h2 class="flyer__title">★ Blockbuster deals</h2>
+        <span class="flyer__count">This week</span>
       </div>
-      <div class="stat-card">
-        <span class="stat-icon blue">
-          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7"/><path d="M20 8h-4M20 8v4"/></svg>
-        </span>
-        <div>
-          <small>Gas discount</small>
-          <strong>Every Mon &amp; Tue</strong>
-        </div>
-      </div>
-      <div class="stat-card">
-        <span class="stat-icon amber">
-          <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 3l2.6 5.5 5.9.8-4.3 4.2 1 6-5.2-2.9L6.8 19.5l1-6L3.5 9.3l6-.8L12 3Z"/></svg>
-        </span>
-        <div>
-          <small>This week</small>
-          <strong><span id="deal-count">25</span> items on sale</strong>
-        </div>
-      </div>
+      <div id="flyer-items"></div>
+      <a class="btn btn--tinted btn--block flyer__cta" href="#weekly">See the whole ad</a>
     </div>
   </section>
 
-  <!-- ================= WEEKLY AD ================= -->
-  <section class="section wrap" id="weekly">
-    <div class="section-head reveal">
+  <!-- ============================ WEEKLY AD ============================ -->
+  <section class="wrap section ad" id="weekly" aria-labelledby="weekly-title">
+    <span class="section__eyebrow">Weekly Ad</span>
+    <h2 id="weekly-title">Grocery, bakery, dairy &amp; frozen</h2>
+    <p class="section__lede">Prices good this week at 66 Main Street. Add anything
+      to your list and it stays on your phone until you've shopped it.</p>
+
+    <div class="ad__controls">
+      <div class="field" id="search-field">
+        <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+        <input type="search" id="search" placeholder="Search brands or products" aria-label="Search this week's specials" autocomplete="off">
+        <button class="field__clear" id="search-clear" type="button" aria-label="Clear search">
+          <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <div class="segmented" id="filters" role="tablist" aria-label="Filter by department">
+        <span class="segmented__indicator" id="filter-indicator" aria-hidden="true"></span>
+      </div>
+
+      <p class="ad__status" id="ad-status" role="status" aria-live="polite"></p>
+    </div>
+
+    <div class="ad__grid" id="ad-grid"></div>
+
+    <div class="ad__empty" id="ad-empty" hidden>
+      <b>No matches</b>
+      <p>Nothing in this week's ad uses that word. Try a brand name like Barilla, or clear the search to see all 25.</p>
+      <button class="btn btn--tinted" id="empty-reset" type="button">Show all specials</button>
+    </div>
+
+    <p class="ad__fine">Select varieties. We reserve the right to limit quantities.
+      Prices change with each new flyer — call (603) 632-7443 and we'll hold something for you.</p>
+  </section>
+
+  <!-- ============================ DEPARTMENTS ============================ -->
+  <section class="section" id="departments" aria-labelledby="dept-title">
+    <div class="wrap">
+      <span class="section__eyebrow">In the store</span>
+      <h2 id="dept-title">Eight aisles, one roof</h2>
+      <p class="section__lede">Cut, baked and made here — not trucked in finished.</p>
+    </div>
+
+    <div class="aisle" id="aisle" tabindex="0" role="group" aria-label="Store departments, scroll sideways">
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M15.5 3.5a5.5 5.5 0 0 0-8 7.4L4 14.4a3 3 0 0 0 4.2 4.2l3.5-3.5a5.5 5.5 0 0 0 3.8-11.6Z"/></svg></span>
+          <h3>Meat</h3>
+          <p>100% Certified Black Angus beef. Steaks, ground beef, pot roasts and stew meat, cut fresh daily.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M5 12a7 7 0 0 1 14 0"/></svg></span>
+          <h3>Deli</h3>
+          <p>Indian cooking made from scratch every morning, Italian subs, and hot pizza by the slice.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21c-5 0-8-3.5-8-8 4 0 8 1.5 8 8Z"/><path d="M12 21c0-7 4-12 9-12 0 6-3.5 12-9 12Z"/></svg></span>
+          <h3>Produce</h3>
+          <p>Deliveries through the week, with New Hampshire growers on the shelf in season.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z"/><path d="M4 9V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4"/><path d="M10 13h4"/></svg></span>
+          <h3>Bakery</h3>
+          <p>Brick oven Tuscan loaves, Country Kitchen donuts and cakes for the table.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></svg></span>
+          <h3>Frozen</h3>
+          <p>Ice cream, novelties, vegetables and the weeknight dinners that save you an hour.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3h5l1 5v13H7V8l1-5Z"/><path d="M8 8h6"/><path d="M17 8h3v9a2 2 0 0 1-4 0v-4"/></svg></span>
+          <h3>Beer, wine &amp; tobacco</h3>
+          <p>Cold cases of local craft and domestics by the 30 pack, wine, and tobacco.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15"/><path d="M3 20h12"/><path d="M17 10h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 1-3 0v-5"/><path d="M17 6l3 2"/></svg></span>
+          <h3>Gas</h3>
+          <p>Fill up out front. The price drops further every Monday and Tuesday.</p>
+        </article>
+
+        <article class="card dept reveal">
+          <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 2h12l-1 6H7L6 2Z"/><path d="M7 8h10l1 12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L7 8Z"/></svg></span>
+          <h3>Grocery</h3>
+          <p>Pantry staples, household goods and the brands you already buy, at neighborhood prices.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================ DELI ============================ -->
+  <section class="wrap section" id="deli" aria-labelledby="deli-title">
+    <span class="section__eyebrow">The deli counter</span>
+    <h2 id="deli-title">Indian cooking, in a Main Street market</h2>
+
+    <div class="deli">
       <div>
-        <span class="eyebrow">Weekly Ad</span>
-        <h2>Grocery · Bakery · Dairy · Frozen</h2>
-        <p class="sub">Prices good this week at 66 Main Street. Tap the <span class="inline-plus">+</span> on any
-          item to build a shopping list you can take to the store.</p>
-      </div>
-    </div>
+        <p class="section__lede">Most small-town delis stop at cold cuts. Ours cooks
+          authentic Indian dishes from fresh ingredients every morning — and still
+          makes the Italian subs people drive in for.</p>
 
-    <div class="ad-controls reveal">
-      <label class="search">
-        <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" id="search" placeholder="Search brands or products…" aria-label="Search this week's specials">
-      </label>
-      <div class="chips" id="chips" role="tablist" aria-label="Filter by department"></div>
-    </div>
-
-    <div class="grid" id="product-grid"></div>
-    <p class="empty" id="empty" hidden>No matches — try another word.</p>
-
-    <p class="fineprint reveal">Not all items available in all varieties. We reserve the right to limit quantities.
-      Prices change with each new flyer — call the store at (603) 632-7443 if you want us to hold something.</p>
-  </section>
-
-  <!-- ================= DEPARTMENTS ================= -->
-  <section class="section wrap" id="departments">
-    <div class="section-head reveal">
-      <div>
-        <span class="eyebrow">In the store</span>
-        <h2>Full service departments</h2>
-        <p class="sub">Everything you need for the week under one roof, cut and made fresh in house.</p>
-      </div>
-    </div>
-
-    <div class="dept-grid">
-      <article class="card dept reveal">
-        <span class="dept-icon red"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M15.5 3.5a5.5 5.5 0 0 0-8 7.4L4 14.4a3 3 0 0 0 4.2 4.2l3.5-3.5a5.5 5.5 0 0 0 3.8-11.6Z"/></svg></span>
-        <h3>Meat</h3>
-        <p>100% Certified Black Angus Beef — steaks, ground beef, pot roasts and stew meat, cut fresh daily by our butchers.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon amber"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 12h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M5 12a7 7 0 0 1 14 0"/></svg></span>
-        <h3>Deli</h3>
-        <p>Authentic Indian cuisine made fresh every day, plus our famous Italian subs, hot pizza and party platters.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon green"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 21c-5 0-8-3.5-8-8 4 0 8 1.5 8 8Z"/><path d="M12 21c0-7 4-12 9-12 0 6-3.5 12-9 12Z"/></svg></span>
-        <h3>Produce</h3>
-        <p>Fresh fruit and vegetables delivered through the week, with local New Hampshire growers in season.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon violet"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z"/><path d="M4 9V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4"/><path d="M10 13h4"/></svg></span>
-        <h3>Bakery</h3>
-        <p>Brick oven breads, Country Kitchen donuts and cakes — grab a warm loaf on your way home.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon blue"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></svg></span>
-        <h3>Frozen</h3>
-        <p>Full frozen aisle — ice cream, novelties, vegetables and quick weeknight dinners.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon slate"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M8 3h5l1 5v13H7V8l1-5Z"/><path d="M8 8h6"/><path d="M17 8h3v9a2 2 0 0 1-4 0v-4"/></svg></span>
-        <h3>Beer, Wine &amp; Tobacco</h3>
-        <p>Cold cases stocked with local craft, domestics by the 30 pack, wine and tobacco products.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon teal"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 20V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15"/><path d="M3 20h12"/><path d="M17 10h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 1-3 0v-5"/><path d="M17 6l3 2"/></svg></span>
-        <h3>Gas Station</h3>
-        <p>Fill up out front — and save extra per gallon <strong>every Monday and Tuesday</strong>.</p>
-      </article>
-
-      <article class="card dept reveal">
-        <span class="dept-icon pink"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M6 2h12l-1 6H7L6 2Z"/><path d="M7 8h10l1 12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L7 8Z"/></svg></span>
-        <h3>Everyday Grocery</h3>
-        <p>Pantry staples, household goods, snacks and the brands you already buy — at neighborhood prices.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ================= DELI ================= -->
-  <section class="section wrap" id="deli">
-    <div class="card deli-card reveal">
-      <div class="deli-copy">
-        <span class="eyebrow">The Deli Counter</span>
-        <h2>Made fresh, every single day.</h2>
-        <p class="sub">Our deli is a little different from the one you'd expect in a small town market:
-          alongside the Italian subs and hot pizza people drive in for, we cook
-          <strong>authentic Indian cuisine from fresh ingredients daily</strong>.</p>
-
-        <ul class="tick-list">
-          <li>Authentic Indian dishes, made from scratch</li>
-          <li>Italian subs, cold sandwiches and wraps</li>
-          <li>Hot pizza by the pie or the slice</li>
-          <li>Sliced meats &amp; cheeses by the pound</li>
-          <li>Party platters and catering for any size crowd</li>
+        <ul class="deli__list">
+          <li><svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg> Indian dishes cooked from scratch daily</li>
+          <li><svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg> Italian subs, cold sandwiches and wraps</li>
+          <li><svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg> Hot pizza by the pie or the slice</li>
+          <li><svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg> Meats and cheeses sliced to order</li>
+          <li><svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"/></svg> Party platters and catering</li>
         </ul>
 
-        <div class="deli-actions">
-          <a class="btn btn-primary" href="tel:+16036327443">Call to order</a>
-          <a class="btn btn-ghost" href="#visit">Store hours</a>
-        </div>
+        <a class="btn btn--filled" href="tel:+16036327443">
+          <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
+          Call to order
+        </a>
       </div>
 
-      <aside class="deli-hours">
+      <aside class="card deli__aside">
         <h3>Deli hours</h3>
-        <div class="hour-row"><span>Monday – Friday</span><strong>11am – 6pm</strong></div>
-        <div class="hour-row"><span>Saturday</span><strong class="muted">Closed</strong></div>
-        <div class="hour-row"><span>Sunday</span><strong class="muted">Closed</strong></div>
-        <p class="note">Catering orders: please give us 24 hours' notice so we can do it right.</p>
+        <div class="hours__row"><span>Monday – Friday</span><b>11am – 6pm</b></div>
+        <div class="hours__row"><span>Saturday</span><b>Closed</b></div>
+        <div class="hours__row"><span>Sunday</span><b>Closed</b></div>
+        <p class="deli__note">Catering: give us a day's notice and we'll have it ready.</p>
 
-        <div class="daily-special">
-          <span class="eyebrow">Daily Specials</span>
-          <p>A different hot lunch special comes out of the deli kitchen every weekday.
-            Give us a call to hear what's on today.</p>
-          <a class="btn btn-ghost" href="tel:+16036327443">
-            <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg>
-            Ask about today's special
-          </a>
+        <div class="deli__special">
+          <span class="section__eyebrow">Daily specials</span>
+          <p style="font-size:var(--text-subhead);color:var(--ink-secondary);margin:0 0 var(--sp-4)">
+            A different hot lunch comes out of the kitchen each weekday. Call to hear today's.</p>
+          <a class="btn btn--plain" href="tel:+16036327443">Ask about today</a>
         </div>
       </aside>
     </div>
   </section>
 
-  <!-- ================= ABOUT ================= -->
-  <section class="section wrap" id="about">
-    <div class="about-grid">
-      <div class="reveal">
-        <span class="eyebrow">Our story</span>
-        <h2>Three generations on Main Street.</h2>
-        <p class="sub">George's AG Super Value has been feeding Enfield since <strong>1965</strong>. We're still
-          family owned, still on Main Street, and still run the way a grocery store should be —
-          you'll get greeted at the register and the butcher will cut your roast the way you like it.</p>
-        <p class="sub">Being an Associated Grocers store means we buy with hundreds of other independent
-          markets, so you get the brands and the prices of a big chain while shopping somewhere that
-          actually knows your name.</p>
+  <!-- ============================ STORY ============================ -->
+  <section class="wrap section" id="story" aria-labelledby="story-title">
+    <div class="story">
+      <div>
+        <span class="section__eyebrow">Our story</span>
+        <h2 id="story-title">Sixty years on Main Street</h2>
+        <p class="section__lede">George's has fed Enfield since 1965. Still family
+          owned, still on Main Street, still the kind of store where the butcher
+          cuts your roast the way you asked and somebody knows your name at the register.</p>
+        <p class="section__lede">Buying through Associated Grocers puts us in with
+          hundreds of other independent markets, so the brands and the prices keep up
+          with the chains — without any of this belonging to one.</p>
       </div>
 
-      <div class="about-stats reveal">
-        <div class="card mini"><strong>1965</strong><small>Year we opened</small></div>
-        <div class="card mini"><strong>7 days</strong><small>Open every week</small></div>
-        <div class="card mini"><strong>100%</strong><small>Certified Black Angus beef</small></div>
-        <div class="card mini"><strong>Local</strong><small>Family owned &amp; operated</small></div>
+      <div class="story__stats">
+        <div class="card stat reveal"><b>1965</b><span>Year we opened</span></div>
+        <div class="card stat reveal"><b>7</b><span>Days a week, 8am to 10pm</span></div>
+        <div class="card stat reveal"><b>100%</b><span>Certified Black Angus beef</span></div>
+        <div class="card stat reveal"><b>2</b><span>Discount gas days, Mon &amp; Tue</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ================= VISIT ================= -->
-  <section class="section wrap" id="visit">
-    <div class="section-head reveal">
-      <div>
-        <span class="eyebrow">Visit us</span>
-        <h2>Come see us on Main Street</h2>
-      </div>
-    </div>
+  <!-- ============================ VISIT ============================ -->
+  <section class="wrap section" id="visit" aria-labelledby="visit-title">
+    <span class="section__eyebrow">Visit</span>
+    <h2 id="visit-title">66 Main Street, Enfield</h2>
 
-    <div class="visit-grid">
-      <article class="card visit-card reveal">
+    <div class="visit">
+      <article class="card visit__card">
         <h3>Store hours</h3>
-        <div class="hour-row" data-day="1"><span>Monday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="2"><span>Tuesday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="3"><span>Wednesday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="4"><span>Thursday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="5"><span>Friday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="6"><span>Saturday</span><strong>8am – 10pm</strong></div>
-        <div class="hour-row" data-day="0"><span>Sunday</span><strong>8am – 10pm</strong></div>
+        <div class="hours__row" data-day="1"><span>Monday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="2"><span>Tuesday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="3"><span>Wednesday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="4"><span>Thursday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="5"><span>Friday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="6"><span>Saturday</span><b>8am – 10pm</b></div>
+        <div class="hours__row" data-day="0"><span>Sunday</span><b>8am – 10pm</b></div>
       </article>
 
-      <article class="card visit-card reveal">
+      <article class="card visit__card">
         <h3>Find us</h3>
-        <a class="contact-row" href="https://maps.google.com/?q=66+Main+St+Enfield+NH+03748" target="_blank" rel="noopener">
-          <span class="stat-icon green"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <span><small>Address</small><strong>66 Main St, Enfield, NH 03748</strong></span>
+        <a class="contact" href="https://maps.google.com/?q=66+Main+St+Enfield+NH+03748" target="_blank" rel="noopener">
+          <span class="contact__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span><small>Address</small><b>66 Main St, Enfield, NH 03748</b></span>
         </a>
-        <a class="contact-row" href="tel:+16036327443">
-          <span class="stat-icon blue"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></span>
-          <span><small>Phone</small><strong>(603) 632-7443</strong></span>
+        <a class="contact" href="tel:+16036327443">
+          <span class="contact__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z"/></svg></span>
+          <span><small>Phone</small><b>(603) 632-7443</b></span>
         </a>
-        <div class="contact-row static">
-          <span class="stat-icon amber"><svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-          <span><small>Right now</small><strong id="open-status-2">Open · 8am – 10pm</strong></span>
+        <div class="contact">
+          <span class="contact__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+          <span><small>Right now</small><b id="status-long">Open · closes 10pm</b></span>
         </div>
       </article>
     </div>
   </section>
 </main>
 
-<!-- ================= FOOTER ================= -->
+<!-- ============================ FOOTER ============================ -->
 <footer class="footer">
-  <div class="wrap footer-inner">
-    <div>
-      <a class="brand" href="#top">
-        <span class="brand-mark">G</span>
-        <span class="brand-text"><strong>George's</strong><small>AG Super Value</small></span>
-      </a>
-      <p class="footer-note">66 Main St · Enfield, NH 03748<br>Family owned since 1965</p>
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="#top">
+          <span class="brand__mark" aria-hidden="true">G</span>
+          <span class="brand__name"><b>George's</b><span>AG Super Value</span></span>
+        </a>
+        <p style="margin-top:var(--sp-4);color:var(--ink-secondary);font-size:var(--text-subhead)">
+          66 Main St, Enfield, NH 03748<br>Open 7 days, 8am – 10pm</p>
+      </div>
+
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#weekly">Weekly Ad</a>
+        <a href="#departments">Departments</a>
+        <a href="#deli">Deli</a>
+        <a href="#story">Our Story</a>
+        <a href="#visit">Hours &amp; directions</a>
+        <a href="tel:+16036327443">(603) 632-7443</a>
+      </nav>
     </div>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="#weekly">Weekly Ad</a>
-      <a href="#departments">Departments</a>
-      <a href="#deli">Deli Menu</a>
-      <a href="#about">About</a>
-      <a href="#visit">Hours &amp; Directions</a>
-      <a href="tel:+16036327443">(603) 632-7443</a>
-    </nav>
-  </div>
-  <div class="wrap copyright">
-    <span>&copy; <span id="year">2026</span> George's AG Super Value. All rights reserved.</span>
-    <span>Open 7 days · 8am – 10pm</span>
+
+    <div class="footer__legal">
+      <span>&copy; <span id="year">2026</span> George's AG Super Value. Family owned since 1965.</span>
+      <span>Your shopping list stays on your device. We don't collect anything.</span>
+    </div>
   </div>
 </footer>
 
-<!-- ================= SHOPPING LIST DRAWER ================= -->
-<div class="scrim" id="scrim" hidden></div>
-<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
-  <div class="sheet-head">
-    <h2 id="sheet-title">My List <span class="badge" id="list-count-sheet">0</span></h2>
-    <button class="icon-btn" id="list-close" aria-label="Close shopping list">
-      <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-    </button>
-  </div>
-  <div class="sheet-body" id="sheet-body"></div>
-  <div class="sheet-foot">
-    <div class="total-row">
-      <span>Estimated total</span>
-      <strong id="list-total">$0.00</strong>
-    </div>
-    <div class="sheet-actions">
-      <button class="btn btn-ghost" id="list-clear">Clear list</button>
-      <button class="btn btn-primary" id="list-print">Print list</button>
-    </div>
-    <p class="note">Saved on this device only — your list will still be here next time you open the site.</p>
-  </div>
-</aside>
-
-<!-- ================= MOBILE BOTTOM NAV ================= -->
-<nav class="tabbar" aria-label="Mobile">
-  <a href="#top" class="tab is-active" data-target="home">
-    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8Z"/></svg>
+<!-- ============================ TAB BAR ============================ -->
+<nav class="tabbar" aria-label="Primary">
+  <a class="tab" href="#top" data-section="home" aria-current="true">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-8Z"/></svg>
     <span>Home</span>
   </a>
-  <a href="#weekly" class="tab" data-target="weekly">
-    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg>
+  <a class="tab" href="#weekly" data-section="weekly">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg>
     <span>Weekly Ad</span>
   </a>
-  <a href="#deli" class="tab" data-target="deli">
-    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 12h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M5 12a7 7 0 0 1 14 0"/></svg>
+  <a class="tab" href="#deli" data-section="deli">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M5 12a7 7 0 0 1 14 0"/></svg>
     <span>Deli</span>
   </a>
-  <a href="#visit" class="tab" data-target="visit">
-    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+  <a class="tab" href="#visit" data-section="visit">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
     <span>Visit</span>
   </a>
-  <button class="tab" id="tab-list">
-    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M9 5h10M9 12h10M9 19h10M4.5 5h.01M4.5 12h.01M4.5 19h.01"/></svg>
+  <button class="tab" id="tab-list" type="button" aria-haspopup="dialog">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>
     <span>My List</span>
-    <span class="badge tab-badge" id="list-count-tab">0</span>
+    <span class="badge tab__badge" id="count-tab" hidden>0</span>
   </button>
 </nav>
 
-<script src="data/products.js"></script>
-<script src="app.js"></script>
+<!-- ============================ LIST SHEET ============================ -->
+<div class="scrim" id="scrim" hidden></div>
+
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet__grabber" id="grabber" role="presentation"></div>
+
+  <div class="sheet__head">
+    <h2 id="sheet-title">My list <span class="badge" id="count-sheet">0</span></h2>
+    <button class="icon-btn" id="sheet-close" type="button" aria-label="Close my list">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="sheet__body" id="sheet-body"></div>
+
+  <div class="sheet__foot">
+    <div class="hours__row" style="border:0;padding-top:0">
+      <span>Estimated total</span>
+      <b class="price price--lg" id="list-total">$0.00</b>
+    </div>
+    <div style="display:flex;gap:var(--touch-gap);margin-top:var(--sp-3)">
+      <button class="btn btn--plain btn--block" id="list-clear" type="button">Clear</button>
+      <button class="btn btn--filled btn--block" id="list-print" type="button">Print list</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ============================ TOAST ============================ -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast__text" id="toast-text"></span>
+  <button class="toast__action" id="toast-action" type="button">Undo</button>
+</div>
+
+<script src="data/products.js" defer></script>
+<script src="app.js" defer></script>
 </body>
 </html>

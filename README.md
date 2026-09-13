@@ -8,10 +8,12 @@ Open `index.html` in a browser and it just works.
 
 | File | What it does |
 | --- | --- |
-| `index.html` | All the text and sections of the page (hero, weekly ad, departments, deli, about, visit, footer). |
-| `styles.css` | All the looks — colors, spacing, rounded cards, animations, phone layout. |
-| `app.js` | The behavior — search, filters, the shopping list, the open/closed clock. |
+| `index.html` | All the text and sections of the page (hero, weekly ad, departments, deli, story, visit, footer). |
+| `styles.css` | All the looks — the design system: colors, type, spacing, components, animations, phone layout. |
+| `app.js` | The behavior — search, filters, the shopping list, the sheet, the open/closed clock. |
 | `data/products.js` | **The weekly flyer items.** This is the only file you need to touch most weeks. |
+| `design-system.html` | A live page showing every color, size and component. Open it to see what you have to work with. |
+| `DESIGN.md` | Why the design is the way it is, plus the accessibility and testing checklists. |
 
 ## Updating next week's sale prices
 
@@ -38,8 +40,11 @@ the "X items on sale" number on the homepage update themselves.
 
 - **Open / Closed** — reads the visitor's clock against the 8am–10pm hours.
 - **"Today"** badge on the store hours list.
-- **Item counts** on every filter chip and in the hero.
+- **Item counts** on every filter button and in the hero.
+- **The three Blockbuster deals** shown on the homepage — they come from whichever
+  items you mark `blockbuster: true`.
 - **Copyright year** in the footer.
+- **Light or dark** — follows the visitor's phone setting until they tap the sun/moon.
 
 Store hours live in one place: the `STORE` line near the top of `app.js`, plus the
 rows in the "Visit" section of `index.html`.
