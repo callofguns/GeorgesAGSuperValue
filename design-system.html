@@ -84,9 +84,19 @@
     <h3 style="margin-top:var(--sp-8)">Primary ramp</h3>
     <div class="swatches" id="ramp"></div>
 
+    <h3 style="margin-top:var(--sp-8)">Aisle palette</h3>
+    <p class="section__lede">One colour per department — the way a real store colour-codes
+      its aisle signage. Used for department icons, the category filter's dot and sliding
+      indicator, and a deal card's left edge. Never for prices, never for the Blockbuster
+      flag, never for anything actionable — buttons stay the single green accent regardless
+      of which department a product is in. Every fill reads ≥4.5:1 against its own label
+      text, and every icon reads ≥3:1 against its quiet tint, in both themes.</p>
+    <div class="swatches" id="aisle"></div>
+
     <p class="note-box" style="margin-top:var(--sp-5)">Colour never carries meaning on its
       own. The Blockbuster flag pairs amber with a ★ and the word itself; the open/closed
-      dot pairs colour with text; an added item shows a check, not just a green fill.</p>
+      dot pairs colour with text; an added item shows a check, not just a green fill; a
+      department's colour is always paired with its name.</p>
   </section>
 
   <section>
@@ -166,11 +176,18 @@
     <div class="specimen" style="display:block">
       <div class="segmented" id="demo-seg">
         <span class="segmented__indicator" id="demo-indicator"></span>
-        <button class="segmented__btn" aria-selected="true">All items <span class="segmented__count">25</span></button>
-        <button class="segmented__btn" aria-selected="false">Grocery <span class="segmented__count">12</span></button>
-        <button class="segmented__btn" aria-selected="false">Bakery <span class="segmented__count">3</span></button>
-        <button class="segmented__btn" aria-selected="false">Dairy <span class="segmented__count">5</span></button>
+        <button class="segmented__btn" aria-selected="true" data-on="var(--on-accent)">
+          <span class="segmented__dot" style="background:var(--accent)"></span>All items <span class="segmented__count">25</span></button>
+        <button class="segmented__btn" aria-selected="false" data-on="var(--on-accent)">
+          <span class="segmented__dot" style="background:var(--accent)"></span>Grocery <span class="segmented__count">12</span></button>
+        <button class="segmented__btn" aria-selected="false" data-on="var(--aisle-bakery-on)" data-fill="var(--aisle-bakery)">
+          <span class="segmented__dot" style="background:var(--aisle-bakery)"></span>Bakery <span class="segmented__count">3</span></button>
+        <button class="segmented__btn" aria-selected="false" data-on="var(--aisle-dairy-on)" data-fill="var(--aisle-dairy)">
+          <span class="segmented__dot" style="background:var(--aisle-dairy)"></span>Dairy <span class="segmented__count">5</span></button>
       </div>
+      <p style="font-size:var(--text-caption);color:var(--ink-tertiary);margin:var(--sp-3) 0 0">
+        Tap a chip — the indicator slides and recolours to that department's hue; the label
+        text swaps to whichever colour reads ≥4.5:1 on that fill.</p>
     </div>
 
     <h3>Search field</h3>
@@ -182,8 +199,11 @@
     </div>
 
     <h3>Deal card</h3>
+    <p class="section__lede">A card's left edge picks up its department's colour — unless
+      it's a Blockbuster, which always keeps its full amber ring instead. Status beats
+      wayfinding.</p>
     <div class="specimen" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))">
-      <article class="deal deal--flagged">
+      <article class="deal deal--flagged" data-category="pantry">
         <span class="deal__flag">★ Blockbuster</span>
         <h4 class="deal__brand" style="margin:0">Barilla</h4>
         <p class="deal__name">Pasta</p>
@@ -196,7 +216,7 @@
           </button>
         </div>
       </article>
-      <article class="deal">
+      <article class="deal" data-category="dairy">
         <h4 class="deal__brand" style="margin:0">Cabot Creamery</h4>
         <p class="deal__name">Cheese</p>
         <p class="deal__size">Sliced or Cracker Cut 7 - 8 oz</p>
@@ -295,6 +315,11 @@
   ];
   var RAMP = ["--green-50","--green-100","--green-200","--green-300","--green-400",
               "--green-500","--green-600","--green-700","--green-800","--green-900"];
+  var AISLE = [
+    ["meat","Meat"], ["deli","Deli"], ["produce","Produce"], ["bakery","Bakery"],
+    ["dairy","Dairy"], ["frozen","Frozen"], ["household","Household"],
+    ["beverages","Beverages"], ["gas","Gas"]
+  ];
 
   function hex(token) {
     return getComputedStyle(document.documentElement).getPropertyValue(token).trim();
@@ -308,6 +333,13 @@
     document.getElementById("ramp").innerHTML = RAMP.map(function (t) {
       return '<div class="sw"><div class="sw__chip" style="background:var(' + t + ')"></div>' +
         '<div class="sw__meta"><b>' + t.replace("--green-", "Green ") + "</b><span>" + hex(t) + "</span></div></div>";
+    }).join("");
+    document.getElementById("aisle").innerHTML = AISLE.map(function (a) {
+      var fill = "--aisle-" + a[0], on = fill + "-on";
+      return '<div class="sw"><div class="sw__chip" style="background:var(' + fill + ');' +
+        'display:flex;align-items:center;justify-content:center;color:var(' + on + ');' +
+        'font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase">Aa</div>' +
+        '<div class="sw__meta"><b>' + a[1] + "</b><span>" + hex(fill) + "</span></div></div>";
     }).join("");
   }
 
@@ -326,6 +358,8 @@
     function move(b) {
       ind.style.transform = "translateX(" + b.offsetLeft + "px)";
       ind.style.width = b.offsetWidth + "px";
+      ind.style.background = b.dataset.fill || "var(--accent)";
+      b.style.setProperty("--seg-on", b.dataset.on);
     }
     btns.forEach(function (b) {
       b.addEventListener("click", function () {

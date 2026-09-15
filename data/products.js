@@ -16,14 +16,18 @@
   Nothing else in the site needs to change when you edit this file.
 */
 
+// "hue" points at one of the --aisle-* colours in styles.css (the same
+// colour-per-department idea as the store's aisle signage). "all" and
+// "pantry" are the catch-all buckets, so they stay the neutral brand green
+// instead of claiming a colour of their own — leave "hue" off to do that.
 const CATEGORIES = [
   { id: "all", label: "All items", icon: "grid" },
   { id: "pantry", label: "Grocery", icon: "can" },
-  { id: "bakery", label: "Bakery", icon: "bread" },
-  { id: "dairy", label: "Dairy", icon: "milk" },
-  { id: "frozen", label: "Frozen", icon: "snow" },
-  { id: "household", label: "Household", icon: "home" },
-  { id: "beverages", label: "Beer", icon: "bottle" }
+  { id: "bakery", label: "Bakery", icon: "bread", hue: "bakery" },
+  { id: "dairy", label: "Dairy", icon: "milk", hue: "dairy" },
+  { id: "frozen", label: "Frozen", icon: "snow", hue: "frozen" },
+  { id: "household", label: "Household", icon: "home", hue: "household" },
+  { id: "beverages", label: "Beer", icon: "bottle", hue: "beverages" }
 ];
 
 const PRODUCTS = [

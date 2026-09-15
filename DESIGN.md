@@ -85,6 +85,41 @@ No information is carried by colour alone. The Blockbuster flag is amber *and* a
 *and* the word "Blockbuster". The open/closed dot is green/red *and* says which. An
 added item shows a check mark, not just a green fill.
 
+### The aisle palette — colour as wayfinding
+
+One colour per department, the way a real store colour-codes its aisle signage:
+meat, deli, produce, bakery, dairy, frozen, household, beverages and gas each get
+their own hue. It shows up three places — a department's icon on the homepage, the
+dot and sliding indicator on the weekly-ad filter, and a 3px edge on a deal card —
+and nowhere else. Actions stay the single green accent no matter which department a
+product belongs to; colour here identifies a *place in the store*, not a thing to do.
+
+Two buckets are deliberately left neutral: "All items" and "Grocery" (the catch-all
+pantry aisle), same reasoning as the "Grocery" department card — a colour for
+*everything* isn't wayfinding, it's noise. A Blockbuster card always keeps its full
+amber ring instead of its department's edge colour; status outranks wayfinding.
+
+Every hue was contrast-checked the same way as the base palette: the label text on
+its filled chip clears 4.5:1, and the icon on its own quiet tint clears 3:1, in both
+themes.
+
+| Department | Fill | On-fill text |
+|---|---|---|
+| Meat | `#D8383D` | white |
+| Deli | `#C76A0B` | near-black |
+| Produce | `#4C9A2A` | near-black |
+| Bakery | `#B75B3D` | white |
+| Dairy | `#2176C7` | white |
+| Frozen | `#0E93AC` | near-black |
+| Household | `#7C4CE0` | white |
+| Beverages | `#C93FB0` | near-black |
+| Gas | `#5C6DE0` | black |
+
+Each hue is one flat value shared by both themes — only the quiet tint behind an
+icon differs, and that's mixed live with `color-mix(in srgb, var(--aisle-x) N%,
+var(--surface))`, so it adapts to whichever theme is active without a second set of
+tokens per hue.
+
 ---
 
 ## 3. Type

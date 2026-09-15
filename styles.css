@@ -41,6 +41,28 @@
     --blue-300: #6BA8FF;
     --blue-600: #1D4ED8;
 
+    /* ---- Aisle palette ---------------------------------------------
+       One colour per department, the way a real store colour-codes its
+       aisle signage. Used for department icons, category filters and the
+       deal-card edge — never for prices, never for the Blockbuster flag,
+       never for anything actionable (buttons stay the single green accent).
+
+       Each hue is one flat value used in both themes; the quiet tint behind
+       an icon is mixed live against --surface with color-mix(), so it
+       adapts to whichever theme is active without a second set of tokens.
+       Every pairing below is contrast-checked: the -on colour reads at
+       ≥4.5:1 on its own fill, and the icon reads at ≥3:1 on its quiet tint
+       in both dark and light. See DESIGN.md §2 for the numbers. */
+    --aisle-meat:      #D8383D; --aisle-meat-on:      #FFFFFF; --aisle-meat-q:      12%;
+    --aisle-deli:      #C76A0B; --aisle-deli-on:      #1A0F00; --aisle-deli-q:      12%;
+    --aisle-produce:   #4C9A2A; --aisle-produce-on:   #0C0F0A; --aisle-produce-q:    9%;
+    --aisle-bakery:    #B75B3D; --aisle-bakery-on:    #FFFFFF; --aisle-bakery-q:    12%;
+    --aisle-dairy:     #2176C7; --aisle-dairy-on:     #FFFFFF; --aisle-dairy-q:     12%;
+    --aisle-frozen:    #0E93AC; --aisle-frozen-on:    #0C0F0A; --aisle-frozen-q:    10%;
+    --aisle-household: #7C4CE0; --aisle-household-on: #FFFFFF; --aisle-household-q: 10%;
+    --aisle-beverages: #C93FB0; --aisle-beverages-on: #1A0016; --aisle-beverages-q: 10%;
+    --aisle-gas:       #5C6DE0; --aisle-gas-on:       #000000; --aisle-gas-q:       10%;
+
     /* ---- Type: two families, three weights total ---------------------
        Anton  — the circular's price voice. Used ONLY for prices and the
                 founding year. One weight, never for prose.
@@ -492,6 +514,16 @@
   }
   .deal--flagged { border-color: color-mix(in srgb, var(--flag) 45%, transparent); }
 
+  /* A department's colour shows up as a left edge on its deal cards — a
+     wayfinding cue while scanning the grid, not a background wash that
+     would fight the price for attention. Blockbuster status always wins:
+     a flagged card keeps its full amber ring instead. */
+  .deal[data-category="bakery"]:not(.deal--flagged)    { border-left: 3px solid var(--aisle-bakery); }
+  .deal[data-category="dairy"]:not(.deal--flagged)     { border-left: 3px solid var(--aisle-dairy); }
+  .deal[data-category="frozen"]:not(.deal--flagged)    { border-left: 3px solid var(--aisle-frozen); }
+  .deal[data-category="household"]:not(.deal--flagged) { border-left: 3px solid var(--aisle-household); }
+  .deal[data-category="beverages"]:not(.deal--flagged) { border-left: 3px solid var(--aisle-beverages); }
+
   @media (hover: hover) {
     .deal:hover {
       transform: translateY(-3px);
@@ -604,7 +636,8 @@
     border-radius: var(--r-pill);
     background: var(--accent);
     transition: transform var(--dur-standard) var(--ease-out),
-                width var(--dur-standard) var(--ease-out);
+                width var(--dur-standard) var(--ease-out),
+                background-color var(--dur-standard) var(--ease-standard);
     pointer-events: none;
   }
 
@@ -612,6 +645,8 @@
     position: relative;
     z-index: 1;
     flex: none;
+    display: flex;
+    align-items: center;
     min-height: var(--touch-min);
     padding: 0 var(--sp-4);
     border: 0;
@@ -625,7 +660,23 @@
     -webkit-tap-highlight-color: transparent;
     transition: color var(--dur-quick) var(--ease-standard);
   }
-  .segmented__btn[aria-selected="true"] { color: var(--on-accent); }
+  /* Falls back to the brand green's on-colour for "All items" and
+     "Grocery" (they have no --seg-on of their own); JS sets --seg-on on
+     the selected button to match its department colour otherwise. */
+  .segmented__btn[aria-selected="true"] { color: var(--seg-on, var(--on-accent)); }
+
+  /* A small dot of the department's colour, shown on every chip — selected
+     or not — so the palette is visible while browsing, not only once a
+     filter is tapped. */
+  .segmented__dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    flex: none;
+  }
+
   .segmented__count {
     margin-left: 5px;
     opacity: 0.65;
@@ -752,6 +803,10 @@
   .appbar--condensed .appbar__title { opacity: 1; translate: -50% 0; }
 
   .appbar__nav { display: none; }
+
+  /* Mobile already has the list opener in the tab bar; this is desktop's
+     stand-in, so it stays out of the way until the tab bar hides itself. */
+  .appbar__list { display: none; }
 
   /* ---------- tab bar (mobile) ---------- */
   .tabbar {
@@ -1171,6 +1226,20 @@
   .dept h3 { margin-bottom: var(--sp-2); }
   .dept p { font-size: var(--text-subhead); color: var(--ink-secondary); margin: 0; }
 
+  /* One colour per department — aisle signage, not brand colour. Each rule
+     only overrides the icon; the card itself stays the neutral --surface so
+     the colour reads as a label, not a background wash. */
+  .dept--meat      .dept__icon { background: color-mix(in srgb, var(--aisle-meat) var(--aisle-meat-q), var(--surface));           color: var(--aisle-meat); }
+  .dept--deli      .dept__icon { background: color-mix(in srgb, var(--aisle-deli) var(--aisle-deli-q), var(--surface));           color: var(--aisle-deli); }
+  .dept--produce   .dept__icon { background: color-mix(in srgb, var(--aisle-produce) var(--aisle-produce-q), var(--surface));     color: var(--aisle-produce); }
+  .dept--bakery    .dept__icon { background: color-mix(in srgb, var(--aisle-bakery) var(--aisle-bakery-q), var(--surface));       color: var(--aisle-bakery); }
+  .dept--frozen    .dept__icon { background: color-mix(in srgb, var(--aisle-frozen) var(--aisle-frozen-q), var(--surface));       color: var(--aisle-frozen); }
+  .dept--beverages .dept__icon { background: color-mix(in srgb, var(--aisle-beverages) var(--aisle-beverages-q), var(--surface)); color: var(--aisle-beverages); }
+  .dept--gas       .dept__icon { background: color-mix(in srgb, var(--aisle-gas) var(--aisle-gas-q), var(--surface));             color: var(--aisle-gas); }
+  /* Grocery stays the neutral brand green — it's the catch-all aisle, not a
+     department of its own, so it doesn't earn a colour the way the other
+     seven do. */
+
   /* ---------- deli ---------- */
   .deli { display: grid; gap: var(--sp-4); }
   .deli__list { list-style: none; margin: 0 0 var(--sp-5); padding: 0; display: grid; gap: var(--sp-3); }
@@ -1273,6 +1342,7 @@
     body { padding-bottom: 0; }
 
     .tabbar { display: none; }
+    .appbar__list { display: inline-flex; }
     .appbar__inner { min-height: 72px; }
     .appbar__nav {
       display: flex;

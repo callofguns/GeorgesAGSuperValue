@@ -148,6 +148,13 @@
       : PRODUCTS.filter(function (p) { return p.category === id; }).length;
   }
 
+  /* Each department gets a dot of its own colour on the chip — visible
+     whether or not it's selected, so the palette reads at a glance while
+     browsing. "All items" and "Grocery" have no hue and use the brand
+     accent instead, same as everywhere else neutral. */
+  function hueFill(cat) { return cat.hue ? "var(--aisle-" + cat.hue + ")" : "var(--accent)"; }
+  function hueOn(cat)   { return cat.hue ? "var(--aisle-" + cat.hue + "-on)" : "var(--on-accent)"; }
+
   CATEGORIES.forEach(function (cat) {
     var b = document.createElement("button");
     b.className = "segmented__btn";
@@ -155,7 +162,9 @@
     b.role = "tab";
     b.dataset.cat = cat.id;
     b.setAttribute("aria-selected", cat.id === activeCat ? "true" : "false");
-    b.innerHTML = esc(cat.label) + ' <span class="segmented__count">' + countIn(cat.id) + "</span>";
+    b.innerHTML =
+      '<span class="segmented__dot" style="background:' + hueFill(cat) + '" aria-hidden="true"></span>' +
+      esc(cat.label) + ' <span class="segmented__count">' + countIn(cat.id) + "</span>";
     b.addEventListener("click", function () { selectCategory(cat.id, b); });
     filters.appendChild(b);
   });
@@ -165,6 +174,10 @@
        never reflow, so this stays cheap even mid-scroll. */
     indicator.style.transform = "translateX(" + btn.offsetLeft + "px)";
     indicator.style.width = btn.offsetWidth + "px";
+
+    var cat = CATEGORIES.filter(function (c) { return c.id === btn.dataset.cat; })[0];
+    indicator.style.background = hueFill(cat);
+    btn.style.setProperty("--seg-on", hueOn(cat));
   }
 
   function selectCategory(id, btn) {
@@ -227,7 +240,8 @@
     var shown = PRODUCTS.filter(matches);
     var html = shown.map(function (p) {
       var on = inList(p.id);
-      return '<article class="deal' + (p.blockbuster ? " deal--flagged" : "") + '" data-id="' + p.id + '">' +
+      return '<article class="deal' + (p.blockbuster ? " deal--flagged" : "") +
+        '" data-id="' + p.id + '" data-category="' + esc(p.category) + '">' +
         (p.blockbuster ? '<span class="deal__flag">★ Blockbuster</span>' : "") +
         '<h3 class="deal__brand">' + esc(p.brand) + "</h3>" +
         '<p class="deal__name">' + esc(p.name) + "</p>" +
@@ -333,13 +347,16 @@
     var n = list.length;
     var tabBadge = $("#count-tab");
     var sheetBadge = $("#count-sheet");
+    var headerBadge = $("#count-header");
 
     tabBadge.textContent = n;
     tabBadge.hidden = n === 0;
     sheetBadge.textContent = n;
+    headerBadge.textContent = n;
+    headerBadge.hidden = n === 0;
 
     if (bump && !reduceMotion.matches) {
-      [tabBadge, sheetBadge].forEach(function (el) {
+      [tabBadge, sheetBadge, headerBadge].forEach(function (el) {
         el.classList.remove("badge--bump");
         void el.offsetWidth;          /* restart the animation */
         el.classList.add("badge--bump");
@@ -390,6 +407,7 @@
   }
 
   $("#tab-list").addEventListener("click", openSheet);
+  $("#list-open").addEventListener("click", openSheet);
   $("#sheet-close").addEventListener("click", closeSheet);
   scrim.addEventListener("click", closeSheet);
 

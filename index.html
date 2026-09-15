@@ -56,6 +56,15 @@
       <a href="#visit">Visit</a>
     </nav>
 
+    <!-- Desktop-only entry point to the list sheet — the tab bar that holds
+         #tab-list is hidden at this width, so this is the only opener above
+         860px. Hidden itself below that width so mobile keeps one control. -->
+    <button class="btn btn--plain appbar__list" id="list-open" type="button" aria-haspopup="dialog">
+      <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></svg>
+      My list
+      <span class="badge" id="count-header" hidden>0</span>
+    </button>
+
     <button class="icon-btn" id="theme-toggle" aria-label="Switch to light theme">
       <svg class="icon" id="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
         <circle cx="12" cy="12" r="4.2"/>
@@ -152,43 +161,43 @@
     </div>
 
     <div class="aisle" id="aisle" tabindex="0" role="group" aria-label="Store departments, scroll sideways">
-        <article class="card dept reveal">
+        <article class="card dept dept--meat reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M15.5 3.5a5.5 5.5 0 0 0-8 7.4L4 14.4a3 3 0 0 0 4.2 4.2l3.5-3.5a5.5 5.5 0 0 0 3.8-11.6Z"/></svg></span>
           <h3>Meat</h3>
           <p>100% Certified Black Angus beef. Steaks, ground beef, pot roasts and stew meat, cut fresh daily.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--deli reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M5 12a7 7 0 0 1 14 0"/></svg></span>
           <h3>Deli</h3>
           <p>Indian cooking made from scratch every morning, Italian subs, and hot pizza by the slice.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--produce reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21c-5 0-8-3.5-8-8 4 0 8 1.5 8 8Z"/><path d="M12 21c0-7 4-12 9-12 0 6-3.5 12-9 12Z"/></svg></span>
           <h3>Produce</h3>
           <p>Deliveries through the week, with New Hampshire growers on the shelf in season.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--bakery reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9Z"/><path d="M4 9V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4"/><path d="M10 13h4"/></svg></span>
           <h3>Bakery</h3>
           <p>Brick oven Tuscan loaves, Country Kitchen donuts and cakes for the table.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--frozen reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M6 6l12 12M18 6 6 18"/></svg></span>
           <h3>Frozen</h3>
           <p>Ice cream, novelties, vegetables and the weeknight dinners that save you an hour.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--beverages reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M8 3h5l1 5v13H7V8l1-5Z"/><path d="M8 8h6"/><path d="M17 8h3v9a2 2 0 0 1-4 0v-4"/></svg></span>
           <h3>Beer, wine &amp; tobacco</h3>
           <p>Cold cases of local craft and domestics by the 30 pack, wine, and tobacco.</p>
         </article>
 
-        <article class="card dept reveal">
+        <article class="card dept dept--gas reveal">
           <span class="dept__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15"/><path d="M3 20h12"/><path d="M17 10h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 1-3 0v-5"/><path d="M17 6l3 2"/></svg></span>
           <h3>Gas</h3>
           <p>Fill up out front. The price drops further every Monday and Tuesday.</p>
